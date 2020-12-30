@@ -1,19 +1,25 @@
 package com.make.dots
 
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.support.v4.view.PagerAdapter
+import android.view.LayoutInflater
+import androidx.viewpager.widget.PagerAdapter
 import android.view.View
 import android.view.ViewGroup
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.image_item.view.*
+import com.make.dots.databinding.ActivityMainBinding
+import com.make.dots.databinding.ImageItemBinding
 
 class MainActivity : AppCompatActivity() {
-
+    // ViewBinding
+    private lateinit var binding: ActivityMainBinding
+    
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-
+        // ViewBinding initialization
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        val view = binding.root
+        setContentView(view)
+    
         val imagesList: ArrayList<Int> = ArrayList()
         imagesList.add(R.drawable.one)
         imagesList.add(R.drawable.two)
@@ -21,21 +27,25 @@ class MainActivity : AppCompatActivity() {
         imagesList.add(R.drawable.four)
         imagesList.add(R.drawable.five)
 
-        imageViewPager.adapter = ImagesAdapter(imagesList)
-        dotsIndicator.setViewPager(imageViewPager)
-        imageViewPager.adapter?.registerDataSetObserver(dotsIndicator.dataSetObserver)
+        binding.imageViewPager.adapter = ImagesAdapter(imagesList)
+        binding.dotsIndicator.setViewPager(binding.imageViewPager)
+        binding.imageViewPager.adapter?.registerDataSetObserver(
+            binding.dotsIndicator.dataSetObserver)
     }
 
-    class ImagesAdapter(val media: ArrayList<Int>) : PagerAdapter() {
-
+    class ImagesAdapter(private val media: ArrayList<Int>) : PagerAdapter() {
         override fun isViewFromObject(view: View, `object`: Any): Boolean = view == `object` as View
 
         override fun instantiateItem(container: ViewGroup, position: Int): Any {
-            val ctx = container.context
-            val view = (ctx as MainActivity).layoutInflater.inflate(R.layout.image_item, container, false)
-            view.imageView.setImageResource(media[position])
-            container.addView(view)
-            return view
+            val binding = ImageItemBinding.inflate(
+                LayoutInflater.from(container.context), container, false
+            )
+            val parentRoot = binding.root
+            
+            binding.imageView.setImageResource(media[position])
+            container.addView(parentRoot)
+            
+            return parentRoot
         }
 
         override fun getCount(): Int = media.size

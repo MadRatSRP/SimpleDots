@@ -2,10 +2,10 @@ package com.make.dots.dotsindicator
 
 import android.content.Context
 import android.widget.LinearLayout
-import android.support.annotation.DrawableRes
-import android.support.v4.view.ViewPager.OnPageChangeListener
+import androidx.annotation.DrawableRes
+import androidx.viewpager.widget.ViewPager.OnPageChangeListener
 import android.database.DataSetObserver
-import android.support.v4.view.ViewPager
+import androidx.viewpager.widget.ViewPager
 import android.view.Gravity
 import android.annotation.TargetApi
 import android.os.Build
@@ -119,7 +119,8 @@ class DotsIndicator : LinearLayout {
         val indicator = View(context)
         indicator.setBackgroundResource(backgroundDrawableId)
         addView(indicator, mIndicatorWidth, mIndicatorHeight)
-        val lp = indicator.layoutParams as LinearLayout.LayoutParams
+        
+        val lp = indicator.layoutParams as LayoutParams
         lp.leftMargin = mIndicatorMargin
         lp.rightMargin = mIndicatorMargin
         lp.topMargin = mIndicatorMargin
