@@ -5,10 +5,15 @@ buildscript {
 
         projectMinSdkVersion = 19
 
+        // Project Dependencies
         // Kotlin JDK | Kotlin Android plugin
         kotlinVersion = "1.4.21"
         // Android Gradle plugin
         gradleVersion = "4.1.1"
+
+        // General Dependencies
+        // ViewPager2
+        viewPagerSecondVersion = "1.0.0"
     }
     repositories {
         google()

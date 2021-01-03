@@ -9,35 +9,39 @@ import android.view.Gravity
 import android.view.View
 import android.widget.LinearLayout
 import androidx.annotation.DrawableRes
-import androidx.viewpager.widget.ViewPager
-import androidx.viewpager.widget.ViewPager.OnPageChangeListener
+import androidx.viewpager2.widget.ViewPager2
 
 class DotsIndicator : LinearLayout {
-    lateinit var mViewpager: ViewPager
+    lateinit var mViewpager: ViewPager2
     private var mIndicatorMargin = -1
     private var mIndicatorWidth = -1
     private var mIndicatorHeight = -1
     private var mIndicatorBackgroundResId = R.drawable.dot_selected
     private var mIndicatorUnselectedBackgroundResId = R.drawable.dot_unselected
     private var mLastPosition = -1
-
-    private val mInternalPageChangeListener = object : OnPageChangeListener {
-        override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {}
-
+    
+    private val viewPagerOnPageSelectedCallback = object : ViewPager2.OnPageChangeCallback() {
         override fun onPageSelected(position: Int) {
-            if (mViewpager.adapter == null || mViewpager.adapter?.count ?: 0 <= 0) return
-            if (mLastPosition >= 0) getChildAt(mLastPosition)?.setBackgroundResource(mIndicatorUnselectedBackgroundResId)
+            super.onPageSelected(position)
+            if (mViewpager.adapter == null || mViewpager.adapter?.itemCount ?: 0 <= 0) {
+                return
+            }
+            
+            if (mLastPosition >= 0) {
+                getChildAt(mLastPosition)?.setBackgroundResource(mIndicatorUnselectedBackgroundResId)
+            }
+            
             getChildAt(position)?.setBackgroundResource(mIndicatorBackgroundResId)
             mLastPosition = position
         }
-
-        override fun onPageScrollStateChanged(state: Int) {}
     }
+    
+    
 
     val dataSetObserver: DataSetObserver = object : DataSetObserver() {
         override fun onChanged() {
             super.onChanged()
-            val newCount = mViewpager.adapter?.count ?: 0
+            val newCount = mViewpager.adapter?.itemCount ?: 0
             val currentCount = childCount
             mLastPosition = when {
                 newCount == currentCount -> return
@@ -143,21 +147,24 @@ class DotsIndicator : LinearLayout {
         }
     }
 
-    fun setViewPager(viewPager: ViewPager) {
+    fun setViewPager(viewPager: ViewPager2) {
         mViewpager = viewPager
         if (mViewpager.adapter != null) {
             mLastPosition = -1
             createIndicators()
-            mViewpager.removeOnPageChangeListener(mInternalPageChangeListener)
+            
+            /*mViewpager.removeOnPageChangeListener(mInternalPageChangeListener)
             mViewpager.addOnPageChangeListener(mInternalPageChangeListener)
-            mInternalPageChangeListener.onPageSelected(mViewpager.currentItem)
+            mInternalPageChangeListener.onPageSelected(mViewpager.currentItem)*/
+            
+            mViewpager.registerOnPageChangeCallback(viewPagerOnPageSelectedCallback)
         }
     }
 
     private fun createIndicators() {
         removeAllViews()
         
-        val count = mViewpager.adapter?.count ?: 0
+        val count = mViewpager.adapter?.itemCount ?: 0
         if (count <= 0) {
             return
         }

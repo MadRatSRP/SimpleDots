@@ -3,11 +3,11 @@ package com.make.dots
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
-import androidx.viewpager.widget.PagerAdapter
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
 import com.make.dots.databinding.ActivityMainBinding
-import com.make.dots.databinding.ImageItemBinding
+import com.make.dots.databinding.ListImageIdsBinding
 
 class MainActivity : AppCompatActivity() {
     // ViewBinding
@@ -29,31 +29,28 @@ class MainActivity : AppCompatActivity() {
 
         binding.imageViewPager.adapter = ImagesAdapter(imagesList)
         binding.dotsIndicator.setViewPager(binding.imageViewPager)
-        binding.imageViewPager.adapter?.registerDataSetObserver(
-            binding.dotsIndicator.dataSetObserver)
     }
 
-    class ImagesAdapter(private val media: ArrayList<Int>) : PagerAdapter() {
-        override fun isViewFromObject(view: View, `object`: Any): Boolean = view == `object` as View
-
-        override fun instantiateItem(container: ViewGroup, position: Int): Any {
-            val binding = ImageItemBinding.inflate(
-                LayoutInflater.from(container.context), container, false
+    class ImagesAdapter(private val listOfImageIds: ArrayList<Int>)
+        : RecyclerView.Adapter<ImagesAdapter.ImagesHolder>() {
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ImagesHolder {
+            val binding = ListImageIdsBinding.inflate(
+                LayoutInflater.from(parent.context), parent, false
             )
-            val parentRoot = binding.root
-            
-            binding.imageView.setImageResource(media[position])
-            container.addView(parentRoot)
-            
-            return parentRoot
+            return ImagesHolder(binding)
         }
-
-        override fun getCount(): Int = media.size
-
-        override fun getItemPosition(`object`: Any): Int = super.getItemPosition(`object`)
-
-        override fun destroyItem(container: ViewGroup, position: Int, `object`: Any) {
-            container.removeView(`object` as View)
+    
+        override fun onBindViewHolder(holder: ImagesHolder, position: Int)
+            = holder.bind(listOfImageIds[position])
+    
+        override fun getItemCount(): Int
+            = listOfImageIds.size
+    
+        class ImagesHolder(private val binding: ListImageIdsBinding)
+            : RecyclerView.ViewHolder(binding.root) {
+            fun bind(imageId: Int) {
+                binding.imageView.setImageResource(imageId)
+            }
         }
     }
 }

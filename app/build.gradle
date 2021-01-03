@@ -37,6 +37,8 @@ dependencies {
     implementation "androidx.appcompat:appcompat:$appCompatVersion"
     // ConstraintLayout
     implementation "androidx.constraintlayout:constraintlayout:$constraintLayoutVersion"
+    // ViewPager2
+    implementation "androidx.viewpager2:viewpager2:$viewPagerSecondVersion"
 
     // Kotlin
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion"
