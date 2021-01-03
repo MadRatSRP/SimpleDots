@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -7,44 +7,25 @@
     android:layout_height="match_parent"
     android:layout_gravity="center"
     android:gravity="center"
-    android:background="#000000"
+    android:background="@color/BLACK"
     tools:context=".MainActivity">
-
-    <RelativeLayout
-        android:id="@+id/imageFrame"
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/imageViewPager"
         android:layout_width="match_parent"
         android:layout_height="300dp"
-        android:gravity="center">
-
-        <androidx.viewpager.widget.ViewPager
-            android:id="@+id/imageViewPager"
-            android:layout_width="match_parent"
-            android:layout_height="300dp"
-            android:layout_gravity="center"
-            android:background="#efefef" />
-
-        <FrameLayout
-            android:id="@+id/dotsFrame"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true">
-
-            <com.make.dots.dotsindicator.DotsIndicator
-                android:id="@+id/dotsIndicator"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp"
-                android:background="@drawable/dots_background"
-                android:padding="6dp"
-                app:dot_drawable="@drawable/ic_dot_darkgrey"
-                app:dot_drawable_unselected="@drawable/ic_dot_lightgrey"
-                app:dot_height="8dp"
-                app:dot_margin="6dp"
-                app:dot_width="8dp" />
-
-        </FrameLayout>
-
-    </RelativeLayout>
-
-</LinearLayout>
+        android:layout_gravity="center"
+        android:background="#efefef"
+        app:layout_constraintTop_toTopOf="parent"/>
+    <com.make.dots.dotsindicator.DotsIndicator
+        android:id="@+id/dotsIndicator"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginBottom="12dp"
+        android:padding="6dp"
+        app:dot_drawable="@drawable/dot_selected"
+        app:dot_drawable_unselected="@drawable/dot_unselected"
+        app:dot_height="13dp"
+        app:dot_margin="6dp"
+        app:dot_width="13dp"
+        app:layout_constraintTop_toBottomOf="@id/imageViewPager"/>
+</androidx.constraintlayout.widget.ConstraintLayout>
