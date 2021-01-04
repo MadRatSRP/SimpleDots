@@ -2,8 +2,10 @@ buildscript {
     ext {
         // Project variables
         compileAndTargetSdkVersion = 30
-
         projectMinSdkVersion = 19
+        projectApplicationId = "com.make.dots"
+        projectVersionCode = 1
+        projectVersionName = "1.0"
 
         // Project Dependencies
         // Kotlin JDK | Kotlin Android plugin

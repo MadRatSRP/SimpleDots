@@ -5,11 +5,11 @@ apply plugin: 'kotlin-android'
 android {
     compileSdkVersion compileAndTargetSdkVersion
     defaultConfig {
-        applicationId "com.make.dots"
+        applicationId projectApplicationId
         minSdkVersion projectMinSdkVersion
         targetSdkVersion compileAndTargetSdkVersion
-        versionCode 1
-        versionName "1.0"
+        versionCode projectVersionCode
+        versionName projectVersionName
     }
     buildTypes {
         release {

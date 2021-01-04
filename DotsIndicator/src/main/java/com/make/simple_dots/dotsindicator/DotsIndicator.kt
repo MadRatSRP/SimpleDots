@@ -1,4 +1,4 @@
-package com.make.dots.dotsindicator
+package com.make.simple_dots.dotsindicator
 
 import android.annotation.TargetApi
 import android.content.Context

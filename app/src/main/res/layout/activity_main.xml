@@ -16,7 +16,7 @@
         android:layout_gravity="center"
         android:background="#efefef"
         app:layout_constraintTop_toTopOf="parent"/>
-    <com.make.dots.dotsindicator.DotsIndicator
+    <com.make.simple_dots.dotsindicator.DotsIndicator
         android:id="@+id/dotsIndicator"
         android:layout_width="match_parent"
         android:layout_height="50dp"

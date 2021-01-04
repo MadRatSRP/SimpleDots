@@ -1,13 +1,12 @@
-package com.make.dots
+package com.make.simple_dots
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.make.dots.databinding.ActivityMainBinding
-import com.make.dots.databinding.ListImageIdsBinding
+import com.make.simple_dots.databinding.ActivityMainBinding
+import com.make.simple_dots.databinding.ListImageIdsBinding
 
 class MainActivity : AppCompatActivity() {
     // ViewBinding
